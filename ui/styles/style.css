@@ -1,0 +1,83 @@
+/* 1. Importation d'une police d'écriture digitale et moderne */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+
+/* 2. Réglages de base de la page */
+body {
+    /* Dans FiveM, le fond de la page doit être transparent pour voir le jeu. 
+       Je mets un gris très foncé ici juste pour que tu puisses tester dans ton navigateur. 
+       Plus tard, remplace ça par : background-color: transparent; */
+    background-color: #121212; 
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Empêche l'apparition des barres de défilement */
+    font-family: 'Rajdhani', sans-serif;
+    color: white;
+}
+
+/* 3. Le conteneur principal du compteur */
+.speedometer {
+    /* On le place en bas à droite de l'écran */
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
+    
+    /* Design épuré : fond sombre, bords arrondis, et effet de flou (très moderne) */
+    background: rgba(15, 15, 20, 0.7); 
+    backdrop-filter: blur(8px); 
+    border-radius: 12px;
+    
+    /* Une petite ligne de couleur en bas pour le style digital */
+    border-bottom: 3px solid #00ffcc; 
+    
+    /* On utilise Flexbox pour aligner la vitesse et la vitesse (gear) côte à côte */
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 15px 30px;
+    
+    /* Une ombre douce pour détacher le compteur du décor du jeu */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* 4. Le bloc qui contient le chiffre et "KM/H" */
+.speed-info {
+    display: flex;
+    align-items: baseline; /* Aligne le bas du "0" avec le bas du "KM/H" */
+    gap: 8px;
+}
+
+/* 5. Le chiffre de la vitesse */
+.speed-value {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 0.8;
+    letter-spacing: 2px;
+    /* Un très léger effet de lueur (glow) pour le côté digital */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
+}
+
+/* 6. L'unité (KM/H) */
+.unit {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #8892b0; /* On le met en gris pour ne pas voler la vedette au chiffre de la vitesse */
+    letter-spacing: 1.5px;
+}
+
+/* 7. Le bloc du rapport de vitesse (Gear) */
+.gear-info {
+    background: rgba(255, 255, 255, 0.08); /* Un petit carré légèrement grisé */
+    padding: 8px 18px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 8. Le chiffre du rapport de vitesse */
+.gear-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00ffcc; /* Rappel de la couleur de la bordure du bas */
+    line-height: 1;
+}
