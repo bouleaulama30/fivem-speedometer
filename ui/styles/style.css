@@ -6,7 +6,7 @@ body {
     /* Dans FiveM, le fond de la page doit être transparent pour voir le jeu. 
        Je mets un gris très foncé ici juste pour que tu puisses tester dans ton navigateur. 
        Plus tard, remplace ça par : background-color: transparent; */
-    background-color: #121212; 
+    background-color: transparent; 
     margin: 0;
     padding: 0;
     overflow: hidden; /* Empêche l'apparition des barres de défilement */
@@ -19,24 +19,20 @@ body {
     /* On le place en bas à droite de l'écran */
     position: absolute;
     bottom: 40px;
-    right: 50px;
+    right: 500px;
     
-    /* Design épuré : fond sombre, bords arrondis, et effet de flou (très moderne) */
-    background: rgba(15, 15, 20, 0.7); 
-    backdrop-filter: blur(8px); 
+    /* Fond supprimé pour enlever le grand rectangle noir */
+    background: transparent;
+    backdrop-filter: none;
     border-radius: 12px;
-    
-    /* Une petite ligne de couleur en bas pour le style digital */
-    border-bottom: 3px solid #00ffcc; 
+    border-bottom: 3px solid rgba(0, 255, 204, 0.85);
     
     /* On utilise Flexbox pour aligner la vitesse et la vitesse (gear) côte à côte */
     display: flex;
     align-items: center;
     gap: 25px;
     padding: 15px 30px;
-    
-    /* Une ombre douce pour détacher le compteur du décor du jeu */
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: none;
 }
 
 /* 4. Le bloc qui contient le chiffre et "KM/H" */
