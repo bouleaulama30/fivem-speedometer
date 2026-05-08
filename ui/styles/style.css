@@ -20,6 +20,8 @@ body {
     position: absolute;
     bottom: 40px;
     right: 500px;
+    width: 242px;
+    box-sizing: border-box;
     
     /* Fond supprimé pour enlever le grand rectangle noir */
     background: transparent;
@@ -27,12 +29,20 @@ body {
     border-radius: 12px;
     border-bottom: 3px solid rgba(0, 255, 204, 0.85);
     
-    /* On utilise Flexbox pour aligner la vitesse et la vitesse (gear) côte à côte */
+    /* On utilise Flexbox pour structurer vitesse, RPM et fuel dans la même logique visuelle */
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px 16px 10px;
+    box-shadow: none;
+}
+
+.speedometer-main {
     display: flex;
     align-items: center;
-    gap: 25px;
-    padding: 15px 30px;
-    box-shadow: none;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 /* 4. Le bloc qui contient le chiffre et "KM/H" */
@@ -44,26 +54,29 @@ body {
 
 /* 5. Le chiffre de la vitesse */
 .speed-value {
-    font-size: 4rem;
+    font-size: 3.65rem;
     font-weight: 700;
     line-height: 0.8;
-    letter-spacing: 2px;
-    /* Un très léger effet de lueur (glow) pour le côté digital */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
+    letter-spacing: 1px;
+    /* Renforcé pour meilleure lisibilité en jeu */
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.5);
 }
 
 /* 6. L'unité (KM/H) */
 .unit {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #8892b0; /* On le met en gris pour ne pas voler la vedette au chiffre de la vitesse */
-    letter-spacing: 1.5px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00ffcc; /* mise en évidence neon */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0,255,204,0.55);
 }
 
 /* 7. Le bloc du rapport de vitesse (Gear) */
 .gear-info {
     background: rgba(255, 255, 255, 0.08); /* Un petit carré légèrement grisé */
-    padding: 8px 18px;
+    padding: 6px 12px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -72,55 +85,116 @@ body {
 
 /* 8. Le chiffre du rapport de vitesse */
 .gear-value {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #00ffcc; /* Rappel de la couleur de la bordure du bas */
     line-height: 1;
 }
 
-/* 9. Le bloc du carburant (Fuel) */
+.aux-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+}
+
+/* 9. Bloc RPM */
+.rpm-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 255, 204, 0.12);
+}
+
+.rpm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.rpm-label {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #00ffcc;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(0,255,204,0.45);
+}
+
+.rpm-percent {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #00ffcc;
+    text-shadow: 0 0 12px rgba(0, 255, 204, 0.55);
+}
+
+.rpm-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.28); /* plus de contraste */
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.rpm-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00ffcc 0%, #00dd99 70%, #7dffb0 100%);
+    box-shadow: 0 0 14px rgba(0, 255, 204, 0.55);
+    transition: width 0.12s linear, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* 10. Le bloc du carburant (Fuel) */
 .fuel-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 5px;
     background: rgba(255, 255, 255, 0.08);
-    padding: 12px 15px;
+    padding: 8px 10px;
     border-radius: 8px;
-    min-width: 80px;
+    min-width: 0;
 }
 
-/* 10. Le label du carburant */
+/* 11. Le label du carburant */
 .fuel-label {
-    font-size: 0.99rem;
-    font-weight: 700;
-    color: #8892b0;
-    letter-spacing: 1.5px;
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: #00ffcc;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(0,255,204,0.45);
 }
 
-/* 11. Conteneur de la barre de carburant */
+/* 12. Conteneur de la barre de carburant */
 .fuel-bar-container {
-    width: 70px;
+    width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0,0,0,0.28);
     border-radius: 3px;
     overflow: hidden;
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
-/* 12. La barre de carburant elle-même */
+/* 13. La barre de carburant elle-même */
 .fuel-bar {
     height: 100%;
     background: linear-gradient(90deg, #00ffcc, #00dd99);
     border-radius: 3px;
-    box-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
+    box-shadow: 0 0 16px rgba(0, 255, 204, 0.75);
     transition: width 0.2s ease;
 }
 
-/* 13. Le pourcentage de carburant */
+/* 14. Le pourcentage de carburant */
 .fuel-percent {
-    font-size: 0.99rem;
-    font-weight: 700;
+    font-size: 0.92rem;
+    font-weight: 800;
     color: #00ffcc;
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+    text-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
 }

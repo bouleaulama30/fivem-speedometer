@@ -6,21 +6,33 @@
   </head>
   <body>
     <div class="speedometer">
+      <div class="speedometer-main">
         <div class="speed-info">
-            <span class="speed-value">0</span>
-            <span class="unit">KM/H</span>
+          <span class="speed-value">0</span>
+          <span class="unit">KM/H</span>
         </div>
         <div class="gear-info">
-            <span class="gear-value">0</span>
+          <span class="gear-value">0</span>
+        </div>
+      </div>
+      <div class="aux-row">
+        <div class="rpm-info">
+          <div class="rpm-header">
+            <span class="rpm-label">RPM</span>
+            <span class="rpm-percent">0%</span>
+          </div>
+          <div class="rpm-bar-container">
+            <div class="rpm-bar"></div>
+          </div>
         </div>
         <div class="fuel-info">
-            <div class="fuel-label">FUEL</div>
-            <div class="fuel-bar-container">
-                <div class="fuel-bar" style="width: 30%"></div>
-            </div>
-            <div class="fuel-percent">30%</div>
+          <div class="fuel-label">FUEL</div>
+          <div class="fuel-bar-container">
+            <div class="fuel-bar" style="width: 30%"></div>
+          </div>
+          <div class="fuel-percent">30%</div>
         </div>
-
+      </div>
     </div>
     <script src="scripts/script.js"></script>
   </body>
