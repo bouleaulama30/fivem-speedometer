@@ -1,11 +1,18 @@
 
 window.addEventListener('DOMContentLoaded', () => {
+    // speedometer
     const speedValueElm = document.querySelector('.speed-value')
     const unitValueElm = document.querySelector('.unit')
     const gearValueElm = document.querySelector('.gear-value')
     const rpmBarElm = document.querySelector('.rpm-bar')
     const rpmPercentElm = document.querySelector('.rpm-percent')
     const speedometerEntityElm = document.querySelector('.speedometer')
+    
+    // speedometer settings
+    const hudEntityElm = document.querySelector('.hud')
+    const oppositeUnitElm = document.querySelector('.hud-switch-unit')
+    const closeButtonElm = document.querySelector('.hud-close')
+    const hideButtonElm = document.querySelector('.hud-hide')
 
     const setSpeedValue = (speed) => {
         speedValueElm.textContent = speed;
@@ -49,6 +56,16 @@ window.addEventListener('DOMContentLoaded', () => {
         
     }
 
+    const setOppositeUnitValue = (unit) => {
+        if (unit === "MPH")
+            oppositeUnitElm.textContent = "Switch to KM/H";
+        else if (unit === "KM/H")
+            oppositeUnitElm.textContent = "Switch to MPH";
+        else
+            oppositeUnitElm.textContent = "Switch to N/A";
+        
+    }
+
     window.addEventListener('message', function(event){
         const data = event.data;
         if (data.action === 'updateSpeedometer'){
@@ -65,6 +82,24 @@ window.addEventListener('DOMContentLoaded', () => {
         if (data.action === 'hideSpeedometer'){
             speedometerEntityElm.style.display = 'none';
         }
+
+        if (data.action === 'openSettings'){
+            hudEntityElm.style.display = 'flex';
+            setOppositeUnitValue(data.unit); 
+        }
+
+    })
+
+    oppositeUnitElm.addEventListener("click", ()=> {
+        (oppositeUnitElm.textContent == "Switch to KM/H") ? setOppositeUnitValue("KM/H") : setOppositeUnitValue("MPH");
+    })
+
+    closeButtonElm.addEventListener("click", ()=> {
+        hudEntityElm.style.display = 'none';
+    })
+
+    hideButtonElm.addEventListener("click", ()=> {
+        speedometerEntityElm.style.display = 'none';
     })
 
     fetch(`https://${GetParentResourceName()}/switchUnit`, {
