@@ -30,7 +30,7 @@ body {
     border-bottom: 3px solid rgba(0, 255, 204, 0.85);
     
     /* On utilise Flexbox pour structurer vitesse, RPM et fuel dans la même logique visuelle */
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
@@ -197,4 +197,122 @@ body {
     font-weight: 800;
     color: #00ffcc;
     text-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
+}
+
+/* ============= SETTINGS HUD ============= */
+
+/* 15. Conteneur principal des paramètres */
+.hud {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    box-sizing: border-box;
+    background: rgba(0, 20, 30, 0.75);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(0, 255, 204, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.2), inset 0 0 20px rgba(0, 255, 204, 0.05);
+}
+
+/* 16. Titre des paramètres */
+.hud-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.4), 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(0, 255, 204, 0.3);
+    padding-bottom: 10px;
+}
+
+/* 17. Conteneur des boutons */
+.hud-bottons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 18. Style générique des boutons */
+.hud-bottons span {
+    padding: 10px 14px;
+    border: 1.5px solid rgba(0, 255, 204, 0.5);
+    border-radius: 8px;
+    background: rgba(0, 255, 204, 0.05);
+    color: #00ffcc;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.15);
+    user-select: none;
+}
+
+/* 19. Effet hover des boutons */
+.hud-bottons span:hover {
+    background: rgba(0, 255, 204, 0.15);
+    border-color: rgba(0, 255, 204, 0.8);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4), inset 0 0 10px rgba(0, 255, 204, 0.1);
+    transform: translateY(-2px);
+}
+
+/* 20. Effet actif (click) des boutons */
+.hud-bottons span:active {
+    transform: translateY(0px);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.2), inset 0 0 8px rgba(0, 255, 204, 0.15);
+}
+
+/* 21. Bouton Switch Unit */
+.hud-switch-unit {
+    background: rgba(0, 200, 180, 0.08);
+    border-color: rgba(0, 255, 204, 0.5);
+}
+
+.hud-switch-unit:hover {
+    background: rgba(0, 200, 180, 0.18);
+}
+
+/* 22. Bouton Hide Speedometer */
+.hud-hide {
+    background: rgba(255, 180, 50, 0.08);
+    border-color: rgba(255, 180, 50, 0.5);
+    color: #ffc966;
+    text-shadow: 0 0 8px rgba(255, 180, 50, 0.3);
+    box-shadow: 0 0 12px rgba(255, 180, 50, 0.1);
+}
+
+.hud-hide:hover {
+    background: rgba(255, 180, 50, 0.18);
+    border-color: rgba(255, 180, 50, 0.8);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 180, 50, 0.3), inset 0 0 10px rgba(255, 180, 50, 0.1);
+}
+
+/* 23. Bouton Close */
+.hud-close {
+    background: rgba(255, 80, 80, 0.08);
+    border-color: rgba(255, 80, 80, 0.5);
+    color: #ff9999;
+    text-shadow: 0 0 8px rgba(255, 80, 80, 0.3);
+    box-shadow: 0 0 12px rgba(255, 80, 80, 0.1);
+}
+
+.hud-close:hover {
+    background: rgba(255, 80, 80, 0.18);
+    border-color: rgba(255, 80, 80, 0.8);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 80, 80, 0.3), inset 0 0 10px rgba(255, 80, 80, 0.1);
 }
