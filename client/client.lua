@@ -1,18 +1,12 @@
 local unit = Config.DefaultUnit;
-
+print("Default unit: " .. unit)
 AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
     return
   end
+
 end)
 
-RegisterNUICallback("switchUnit", function(_, cb)
-    SendNUIMessage({
-        action = "updateUnit",
-        unit = unit,
-    })
-    cb("ok")
-end)
 
 RegisterCommand(Config.SettingsPanel, function()
     print("Activate control panel")
@@ -23,14 +17,29 @@ RegisterCommand(Config.SettingsPanel, function()
     })
 end, false)
 
+RegisterNUICallback("switchUnit", function(_, cb)
+    SendNUIMessage({
+        action = "updateUnit",
+        unit = unit,
+    })
+    cb("ok")
+end)
+
+RegisterNUICallback("closeSettings", function(_, cb)
+    SetNuiFocus(false, false)
+    cb("ok")
+end)
 
 Citizen.CreateThread(function ()
+    print("test")
     while true do
         local ped = PlayerPedId();
 
         
         if IsPedInAnyVehicle(ped, false) then
             local vehicleID = GetVehiclePedIsIn(ped, false)
+
+            -- SetVehicleNumberPlateText(vehicleID, "TAREK")
 
             if GetIsVehicleEngineRunning(vehicleID) then
                 local speed = GetEntitySpeed(vehicleID)
