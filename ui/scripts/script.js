@@ -1,6 +1,6 @@
 
 window.addEventListener('DOMContentLoaded', () => {
-    console.log("Speedometer UI Loaded");
+    let hideButtonState = false
     // speedometer
     const speedValueElm = document.querySelector('.speed-value')
     const unitValueElm = document.querySelector('.unit')
@@ -67,10 +67,29 @@ window.addEventListener('DOMContentLoaded', () => {
         
     }
 
+    const setHideSpeedometer = (hide) => {
+        if (hide)
+            speedometerEntityElm.style.display = 'none';
+        else
+            speedometerEntityElm.style.display = 'flex';
+    }
+
+    const setHideButtonState = () => {
+        if (hideButtonState){
+            hideButtonElm.textContent = "Hide Speedometer"
+            hideButtonState = false
+        }
+        else {
+            hideButtonElm.textContent = "Show Speedometer"
+            hideButtonState = true
+
+        }
+    }
+
     window.addEventListener('message', function(event){
         const data = event.data;
         if (data.action === 'updateSpeedometer'){
-            speedometerEntityElm.style.display = 'flex';
+            setHideSpeedometer(data.hideSpeedometerBool)
             setSpeedValue(data.speed);
             setGearValue(data.gear);
             setRpmValue(data.rpm);
@@ -95,19 +114,17 @@ window.addEventListener('DOMContentLoaded', () => {
         let unit = ""; 
 
         (oppositeUnitElm.textContent === "Switch to KM/H") ? unit = "KM/H" : (oppositeUnitElm.textContent === "Switch to MPH") ? unit = "MPH" : unit = "N/A"
-        console.log(oppositeUnitElm.textContent)
         console.log("Switching unit to ", unit)
-        setUnitValue(unit)
-        if (unit === "KM/H")
-            setOppositeUnitValue("KM/H")
-        else if (unit  === "MPH")
-            setOppositeUnitValue("MPH")
-        else 
-            setOppositeUnitValue("N/A")
 
-        // fetch(`https://${GetParentResourceName()}/closeSettings`, {
-        //     method: 'POST',
-        // });
+        fetch(`https://${GetParentResourceName()}/switchUnit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                unit: unit
+            })
+        }).then(resp => resp.json()).then(resp => console.log(resp));
         
     })
 
@@ -118,12 +135,20 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     })
 
-    // hideButtonElm.addEventListener("click", ()=> {
-    //     speedometerEntityElm.style.display = 'none';
-    // })
+    hideButtonElm.addEventListener("click", ()=> {
+        setHideButtonState();
+        fetch(`https://${GetParentResourceName()}/hideSpeedometer`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                hideSpeedometerBool: hideButtonState
+            })
+        }).then(resp => resp.json()).then(resp => console.log(resp));
+    })
 
-    fetch(`https://${GetParentResourceName()}/switchUnit`, {
+    fetch(`https://${GetParentResourceName()}/startUnit`, {
         method: 'POST',
     });
-
 })

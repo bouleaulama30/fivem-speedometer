@@ -1,4 +1,5 @@
 local unit = Config.DefaultUnit;
+local hideSpeedometerBool = false
 print("Default unit: " .. unit)
 AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
@@ -6,7 +7,6 @@ AddEventHandler('onResourceStart', function(resourceName)
   end
 
 end)
-
 
 RegisterCommand(Config.SettingsPanel, function()
     print("Activate control panel")
@@ -17,7 +17,16 @@ RegisterCommand(Config.SettingsPanel, function()
     })
 end, false)
 
-RegisterNUICallback("switchUnit", function(_, cb)
+RegisterNUICallback("switchUnit", function(data, cb)
+    unit = data.unit
+    SendNUIMessage({
+        action = "updateUnit",
+        unit = unit,
+    })
+    cb("ok")
+end)
+
+RegisterNUICallback("startUnit", function(_, cb)
     SendNUIMessage({
         action = "updateUnit",
         unit = unit,
@@ -41,6 +50,13 @@ RegisterNUICallback("closeSettings", function(_, cb)
     cb("ok")
 end)
 
+RegisterNUICallback("hideSpeedometer", function(data, cb)
+    hideSpeedometerBool = data.hideSpeedometerBool
+    print(hideSpeedometerBool)
+    cb("ok")
+end)
+
+
 
 
 Citizen.CreateThread(function ()
@@ -48,11 +64,10 @@ Citizen.CreateThread(function ()
     while true do
         local ped = PlayerPedId();
 
-        
         if IsPedInAnyVehicle(ped, false) then
             local vehicleID = GetVehiclePedIsIn(ped, false)
 
-            -- SetVehicleNumberPlateText(vehicleID, "TAREK")
+            SetVehicleNumberPlateText(vehicleID, "TAREK")
 
             if GetIsVehicleEngineRunning(vehicleID) then
                 local speed = GetEntitySpeed(vehicleID)
@@ -78,11 +93,13 @@ Citizen.CreateThread(function ()
                     speed = speed,
                     gear = gear,
                     rpm = rpm,
+                    hideSpeedometerBool = hideSpeedometerBool,
                 })
-            else 
+            else
                 SendNUIMessage({
                     action = "hideSpeedometer",
                 })
+        
             end
         end
         
