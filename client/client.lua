@@ -1,5 +1,5 @@
 local unit = Config.DefaultUnit;
-local hideSpeedometerBool = false
+local hideSpeedometerBool = Config.hideSpeedometer
 print("Default unit: " .. unit)
 AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
@@ -26,10 +26,11 @@ RegisterNUICallback("switchUnit", function(data, cb)
     cb("ok")
 end)
 
-RegisterNUICallback("startUnit", function(_, cb)
+RegisterNUICallback("getInitConf", function(_, cb)
     SendNUIMessage({
-        action = "updateUnit",
+        action = "startInitConf",
         unit = unit,
+        hideSpeedometerBool = hideSpeedometerBool,
     })
     cb("ok")
 end)
@@ -57,10 +58,7 @@ RegisterNUICallback("hideSpeedometer", function(data, cb)
 end)
 
 
-
-
 Citizen.CreateThread(function ()
-    print("test")
     while true do
         local ped = PlayerPedId();
 
@@ -73,7 +71,7 @@ Citizen.CreateThread(function ()
                 local speed = GetEntitySpeed(vehicleID)
                 local gear = GetVehicleCurrentGear(vehicleID)
                 local rpm = GetVehicleCurrentRpm(vehicleID)
-
+                local fuel = Config.GetVehicleFuelAmount(vehicleID)
                 
                 -- data conversion from config
                 if unit == 'KM/H' then
@@ -94,6 +92,7 @@ Citizen.CreateThread(function ()
                     gear = gear,
                     rpm = rpm,
                     hideSpeedometerBool = hideSpeedometerBool,
+                    fuel = fuel,
                 })
             else
                 SendNUIMessage({

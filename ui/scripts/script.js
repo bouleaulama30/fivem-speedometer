@@ -5,6 +5,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const speedValueElm = document.querySelector('.speed-value')
     const unitValueElm = document.querySelector('.unit')
     const gearValueElm = document.querySelector('.gear-value')
+    const fuelPercentElm = document.querySelector('.fuel-percent')
+    const fuelBarElm = document.querySelector('.fuel-bar')
     const rpmBarElm = document.querySelector('.rpm-bar')
     const rpmPercentElm = document.querySelector('.rpm-percent')
     const speedometerEntityElm = document.querySelector('.speedometer')
@@ -38,6 +40,23 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const setFuelValue = (fuel) => {
+        fuelBarElm.style.width = `${fuel}%`;
+        fuelPercentElm.textContent = fuel
+
+        if (fuel <= 15) {
+            fuelBarElm.style.background = 'linear-gradient(90deg, #ff9a3d 0%, #ff6b4a 100%)';
+            fuelBarElm.style.boxShadow = '0 0 16px rgba(255, 122, 45, 0.75)';
+        } else if (fuel <= 35) {
+            fuelBarElm.style.background = 'linear-gradient(90deg, #f7d154 0%, #ff9a3d 100%)';
+            fuelBarElm.style.boxShadow = '0 0 14px rgba(247, 209, 84, 0.6)';
+        } else {
+            fuelBarElm.style.background = 'linear-gradient(90deg, #00ffcc 0%, #00dd99 70%, #7dffb0 100%)';
+            fuelBarElm.style.boxShadow = '0 0 14px rgba(0, 255, 204, 0.55)';
+        }
+
+    }
+    
     const setGearValue = (gear) => {
         if (gear === 0)
             gearValueElm.textContent = "R";
@@ -46,6 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
         else 
             gearValueElm.textContent = gear;
     }
+
 
     const setUnitValue = (unit) => {
         if (unit === "KM/H")
@@ -93,10 +113,19 @@ window.addEventListener('DOMContentLoaded', () => {
             setSpeedValue(data.speed);
             setGearValue(data.gear);
             setRpmValue(data.rpm);
+            setFuelValue(data.fuel)
         }
         if (data.action === 'updateUnit'){
             setUnitValue(data.unit);
             setOppositeUnitValue(data.unit);
+        }
+
+        if (data.action === 'startInitConf'){
+            setUnitValue(data.unit);
+            setOppositeUnitValue(data.unit);
+            hideButtonState = data.hideSpeedometerBool
+            if (hideButtonState)
+                hideButtonElm.textContent = "Show Speedometer"
         }
 
         if (data.action === 'hideSpeedometer'){
@@ -148,7 +177,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }).then(resp => resp.json()).then(resp => console.log(resp));
     })
 
-    fetch(`https://${GetParentResourceName()}/startUnit`, {
+    fetch(`https://${GetParentResourceName()}/getInitConf`, {
         method: 'POST',
     });
 })
