@@ -1,11 +1,19 @@
 
 window.addEventListener('DOMContentLoaded', () => {
+    console.log("Speedometer UI Loaded");
+    // speedometer
     const speedValueElm = document.querySelector('.speed-value')
     const unitValueElm = document.querySelector('.unit')
     const gearValueElm = document.querySelector('.gear-value')
     const rpmBarElm = document.querySelector('.rpm-bar')
     const rpmPercentElm = document.querySelector('.rpm-percent')
     const speedometerEntityElm = document.querySelector('.speedometer')
+    
+    // speedometer settings
+    const hudEntityElm = document.querySelector('.hud')
+    const oppositeUnitElm = document.querySelector('.hud-switch-unit')
+    const closeButtonElm = document.querySelector('.hud-close')
+    const hideButtonElm = document.querySelector('.hud-hide')
 
     const setSpeedValue = (speed) => {
         speedValueElm.textContent = speed;
@@ -49,6 +57,16 @@ window.addEventListener('DOMContentLoaded', () => {
         
     }
 
+    const setOppositeUnitValue = (unit) => {
+        if (unit === "MPH")
+            oppositeUnitElm.textContent = "Switch to KM/H";
+        else if (unit === "KM/H")
+            oppositeUnitElm.textContent = "Switch to MPH";
+        else
+            oppositeUnitElm.textContent = "Switch to N/A";
+        
+    }
+
     window.addEventListener('message', function(event){
         const data = event.data;
         if (data.action === 'updateSpeedometer'){
@@ -57,15 +75,52 @@ window.addEventListener('DOMContentLoaded', () => {
             setGearValue(data.gear);
             setRpmValue(data.rpm);
         }
-
         if (data.action === 'updateUnit'){
             setUnitValue(data.unit);
+            setOppositeUnitValue(data.unit);
         }
 
         if (data.action === 'hideSpeedometer'){
             speedometerEntityElm.style.display = 'none';
         }
+
+        if (data.action === 'openSettings'){
+            setOppositeUnitValue(data.unit); 
+            hudEntityElm.style.display = 'flex';
+        }
+
     })
+
+    oppositeUnitElm.addEventListener("click", ()=> {
+        let unit = ""; 
+
+        (oppositeUnitElm.textContent === "Switch to KM/H") ? unit = "KM/H" : (oppositeUnitElm.textContent === "Switch to MPH") ? unit = "MPH" : unit = "N/A"
+        console.log(oppositeUnitElm.textContent)
+        console.log("Switching unit to ", unit)
+        setUnitValue(unit)
+        if (unit === "KM/H")
+            setOppositeUnitValue("KM/H")
+        else if (unit  === "MPH")
+            setOppositeUnitValue("MPH")
+        else 
+            setOppositeUnitValue("N/A")
+
+        // fetch(`https://${GetParentResourceName()}/closeSettings`, {
+        //     method: 'POST',
+        // });
+        
+    })
+
+    closeButtonElm.addEventListener("click", ()=> {
+        hudEntityElm.style.display = 'none';
+        fetch(`https://${GetParentResourceName()}/closeSettings`, {
+            method: 'POST',
+        });
+    })
+
+    // hideButtonElm.addEventListener("click", ()=> {
+    //     speedometerEntityElm.style.display = 'none';
+    // })
 
     fetch(`https://${GetParentResourceName()}/switchUnit`, {
         method: 'POST',
