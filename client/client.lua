@@ -25,10 +25,23 @@ RegisterNUICallback("switchUnit", function(_, cb)
     cb("ok")
 end)
 
+
+RegisterCommand(Config.SettingsPanel, function()
+    print("Activate control panel")
+    SetNuiFocus(true, true)
+    SendNUIMessage({
+        action = "openSettings",
+        unit = unit
+    })
+end, false)
+
+
 RegisterNUICallback("closeSettings", function(_, cb)
     SetNuiFocus(false, false)
     cb("ok")
 end)
+
+
 
 Citizen.CreateThread(function ()
     print("test")

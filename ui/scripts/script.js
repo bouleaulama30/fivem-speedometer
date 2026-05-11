@@ -77,6 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         if (data.action === 'updateUnit'){
             setUnitValue(data.unit);
+            setOppositeUnitValue(data.unit);
         }
 
         if (data.action === 'hideSpeedometer'){
@@ -84,8 +85,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         if (data.action === 'openSettings'){
-            hudEntityElm.style.display = 'flex';
             setOppositeUnitValue(data.unit); 
+            hudEntityElm.style.display = 'flex';
         }
 
     })
@@ -93,13 +94,14 @@ window.addEventListener('DOMContentLoaded', () => {
     oppositeUnitElm.addEventListener("click", ()=> {
         let unit = ""; 
 
-        (oppositeUnitElm.textContent == "Switch to KM/H") ? unit = "MPH" : unit = "KM/H"
-
+        (oppositeUnitElm.textContent === "Switch to KM/H") ? unit = "KM/H" : (oppositeUnitElm.textContent === "Switch to MPH") ? unit = "MPH" : unit = "N/A"
+        console.log(oppositeUnitElm.textContent)
+        console.log("Switching unit to ", unit)
         setUnitValue(unit)
         if (unit === "KM/H")
-            setOppositeUnitValue("MPH")
-        else if (unit  === "MPH")
             setOppositeUnitValue("KM/H")
+        else if (unit  === "MPH")
+            setOppositeUnitValue("MPH")
         else 
             setOppositeUnitValue("N/A")
 
@@ -116,9 +118,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     })
 
-    hideButtonElm.addEventListener("click", ()=> {
-        speedometerEntityElm.style.display = 'none';
-    })
+    // hideButtonElm.addEventListener("click", ()=> {
+    //     speedometerEntityElm.style.display = 'none';
+    // })
 
     fetch(`https://${GetParentResourceName()}/switchUnit`, {
         method: 'POST',
