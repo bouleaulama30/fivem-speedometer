@@ -71,7 +71,7 @@ Citizen.CreateThread(function ()
                 local speed = GetEntitySpeed(vehicleID)
                 local gear = GetVehicleCurrentGear(vehicleID)
                 local rpm = GetVehicleCurrentRpm(vehicleID)
-                local fuel = Config.GetVehicleFuelAmount(vehicleID)
+                local fuel = math.floor(Config.GetVehicleFuelAmount(vehicleID))
                 
                 -- data conversion from config
                 if unit == 'KM/H' then

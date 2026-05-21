@@ -17,7 +17,7 @@ Config.SettingsPanel = 'settings'
 Config.EnableFuel = true
 
 -- Select which fuel system to use for retrieving vehicle fuel level
-Config.FuelSystem = 'sdff' -- Options: LegacyFuel / ox-fuel
+Config.FuelSystem = 'ox-fuel' -- Options: LegacyFuel / ox-fuel
 
 -- Function to retrieve the current fuel amount from a vehicle
 -- Parameter: vehicle - the vehicle entity ID
