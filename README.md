@@ -40,13 +40,13 @@ Clone or download the github repository
 
 #### 2. Add the script to server ressources
 
-Move the downloaded folder into your server ressources&#x20;
+Move the downloaded folder into your server ressources, rename it **fivem-speedometer** if it has a different name&#x20;
 
 ***
 
 #### 3. Update your  `server.cfg`
 
-Add ensure **`fivem-speedometer`  in your&#x20;**<kbd>**server.cfg**</kbd>**&#x20; file to start the script with your server**
+Add **`ensure fivem-speedometer`  in your&#x20;**<kbd>**server.cfg**</kbd>**&#x20; file to start the script with your server**
 
 ### Dependencies
 
@@ -85,6 +85,34 @@ Config.SettingsPanel = 'settings'
 
 ### 3. Fuel System Configuration
 
+Enable fuel system integration
+```lua
+Config.EnableFuel = true -- (true = enabled, false = disabled)
+```
 
----
+Select which fuel system to use for retrieving vehicle fuel level
+```lua
+Config.FuelSystem = 'ox-fuel' -- Options: LegacyFuel / ox-fuel
+```
+
+Function to retrieve the current fuel amount from a vehicle, you can add other fuel systems here if needed
+```lua
+Config.GetVehicleFuelAmount = function(vehicle)
+    if Config.EnableFuel then
+        if DoesEntityExist(vehicle) then
+            if Config.FuelSystem == 'LegacyFuel' then
+                return exports["LegacyFuel"]:GetFuel(vehicle)
+            elseif Config.FuelSystem == 'ox-fuel' then
+                return GetVehicleFuelLevel(vehicle)
+            else
+                -- Fallback: add other fuel systems here if needed
+                return 25 -- Default to 25% if unknown system
+            end
+        end
+    else
+        -- Fallback to the default GTA game fuel level if fuel system is disabled
+        return GetVehicleFuelLevel(vehicle)
+    end
+end
+```
 
