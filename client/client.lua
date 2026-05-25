@@ -100,6 +100,10 @@ Citizen.CreateThread(function ()
                 })
         
             end
+        else
+            SendNUIMessage({
+                action = "hideSpeedometer",
+            })
         end
         
         Citizen.Wait(50)
