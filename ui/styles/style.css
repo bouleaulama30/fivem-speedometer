@@ -17,7 +17,7 @@ body {
     /* On le place en bas à droite de l'écran */
     position: absolute;
     bottom: 40px;
-    right: 500px;
+    right: 40px;
     width: 242px;
     box-sizing: border-box;
     
