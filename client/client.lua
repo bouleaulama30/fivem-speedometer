@@ -65,8 +65,6 @@ Citizen.CreateThread(function ()
         if IsPedInAnyVehicle(ped, false) then
             local vehicleID = GetVehiclePedIsIn(ped, false)
 
-            SetVehicleNumberPlateText(vehicleID, "TAREK")
-
             if GetIsVehicleEngineRunning(vehicleID) then
                 local speed = GetEntitySpeed(vehicleID)
                 local gear = GetVehicleCurrentGear(vehicleID)
