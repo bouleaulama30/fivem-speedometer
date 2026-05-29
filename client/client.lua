@@ -1,6 +1,5 @@
 local unit = Config.DefaultUnit;
 local hideSpeedometerBool = Config.hideSpeedometer
-print("Default unit: " .. unit)
 AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
     return
@@ -9,7 +8,6 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 
 RegisterCommand(Config.SettingsPanel, function()
-    print("Activate control panel")
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = "openSettings",
@@ -35,17 +33,6 @@ RegisterNUICallback("getInitConf", function(_, cb)
     cb("ok")
 end)
 
-
-RegisterCommand(Config.SettingsPanel, function()
-    print("Activate control panel")
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        action = "openSettings",
-        unit = unit
-    })
-end, false)
-
-
 RegisterNUICallback("closeSettings", function(_, cb)
     SetNuiFocus(false, false)
     cb("ok")
@@ -53,7 +40,6 @@ end)
 
 RegisterNUICallback("hideSpeedometer", function(data, cb)
     hideSpeedometerBool = data.hideSpeedometerBool
-    print(hideSpeedometerBool)
     cb("ok")
 end)
 

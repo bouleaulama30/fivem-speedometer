@@ -14,7 +14,7 @@ Config.SettingsPanel = 'settings'
 -- ============================================
 
 -- Enable fuel system integration (true = enabled, false = disabled)
-Config.EnableFuel = true
+Config.EnableFuel = false
 
 -- Select which fuel system to use for retrieving vehicle fuel level
 Config.FuelSystem = 'ox-fuel' -- Options: LegacyFuel / ox-fuel

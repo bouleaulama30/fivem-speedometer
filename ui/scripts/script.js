@@ -143,8 +143,6 @@ window.addEventListener('DOMContentLoaded', () => {
         let unit = ""; 
 
         (oppositeUnitElm.textContent === "Switch to KM/H") ? unit = "KM/H" : (oppositeUnitElm.textContent === "Switch to MPH") ? unit = "MPH" : unit = "N/A"
-        console.log("Switching unit to ", unit)
-
         fetch(`https://${GetParentResourceName()}/switchUnit`, {
             method: 'POST',
             headers: {
