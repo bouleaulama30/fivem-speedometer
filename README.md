@@ -2,7 +2,7 @@
 
 [![Preview](https://img.youtube.com/vi/F78eo-_z8-M/0.jpg)](https://www.youtube.com/watch?v=F78eo-_z8-M)
 
-The **Simple BL30 Speedometer** is a open source light, and simple speedometer resource that provides players with real-time vehicle telemetry. Designed with a modern digital aesthetic, it’s perfect for racing servers, immersive roleplay communities, and any server looking to upgrade its driving interface.
+The **Standalone BL30 Speedometer** is a open source light, and standalone speedometer resource that provides players with real-time vehicle telemetry. Designed with a modern digital aesthetic, it’s perfect for racing servers, immersive roleplay communities, and any server looking to upgrade its driving interface.
 
 ✨ With dynamic visual informations, built-in fuel integration, an in-game settings panel, and  customization, this script enhances both gameplay and the driving experience for any player.
 
