@@ -1,4 +1,4 @@
-# Simple BL30 Speedometer
+# Standalone BL30 Speedometer
 
 [![Preview](https://img.youtube.com/vi/F78eo-_z8-M/0.jpg)](https://www.youtube.com/watch?v=F78eo-_z8-M)
 
